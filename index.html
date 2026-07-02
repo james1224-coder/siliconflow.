@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiliconFlow.cloud | Web EDA Platform</title>
+    <style>
+        body { margin: 0; background: #0a0c16; color: #fff; font-family: system-ui, sans-serif; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 12px 25px; background: #05060a; border-bottom: 1px solid #1f263d; }
+        .workspace { display: flex; flex: 1; overflow: hidden; }
+        .panel { flex: 1; display: flex; flex-direction: column; padding: 15px; }
+        textarea { flex: 1; background: #111425; color: #a6e22e; border: 1px solid #1f263d; border-radius: 6px; padding: 15px; font-family: monospace; font-size: 14px; resize: none; outline: none; line-height: 1.4; }
+        textarea:focus { border-color: #00ffcc; }
+        .console { flex: 1; background: #05060a; color: #00ff66; border: 1px solid #1f263d; border-radius: 6px; padding: 15px; font-family: monospace; font-size: 13px; white-space: pre-wrap; overflow-y: auto; }
+        button { background: #00ffcc; color: #000; border: none; padding: 8px 18px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 14px; }
+        button:hover { background: #00ccaa; }
+        .banner { background: #161a2e; padding: 12px; text-align: center; font-size: 13px; border-top: 1px solid #00ffcc; display: flex; justify-content: center; align-items: center; gap: 12px; }
+        .banner a { background: #ff9900; color: #fff; text-decoration: none; padding: 4px 12px; border-radius: 3px; font-weight: bold; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h2 style="margin:0; color:#00ffcc; font-size: 20px;">SiliconFlow<span style="color:#fff; font-size:13px;">.cloud</span></h2>
+        <button onclick="runLiveSimulation()">🚀 Run Simulation</button>
+    </header>
+    <div class="workspace">
+        <div class="panel">
+            <h3 style="margin-top:0; color:#8f9cae; font-size:12px; text-transform: uppercase;">Verilog RTL Input</h3>
+            <textarea id="codeEditor">module top_module();
+  initial begin
+    $display("Hello from your live hardware toolchain server!");
+  end
+endmodule</textarea>
+        </div>
+        <div class="panel" style="border-left: 1px solid #1f263d;">
+            <h3 style="margin-top:0; color:#8f9cae; font-size:12px; text-transform: uppercase;">Remote Compiler Output</h3>
+            <div id="consoleLog" class="console">Ready for circuit compilation...</div>
+        </div>
+    </div>
+    
+    <div class="banner">
+        🇮🇳 Need advanced verification tools for college lab records? 
+        <a href="YOUR_RAZORPAY_LINK_HERE" target="_blank">Upgrade to Pro (₹99)</a>
+    </div>
+
+    <script>
+        async function runLiveSimulation() {
+            const term = document.getElementById('consoleLog');
+            term.innerText = "[STAGED] Compiling hardware instructions via remote server toolchain...\n";
+            try {
+                // STEP 3 TARGET: REPLACE WITH YOUR LIVE RENDER SERVER URL
+                const response = await fetch('https://YOUR-BACKEND-RENDER-URL.onrender.com/api/simulate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code: document.getElementById('codeEditor').value })
+                });
+                const data = await response.json();
+                term.innerText = data.result;
+            } catch (err) {
+                term.innerText = "❌ Connection failed. Check if your backend server is awake.";
+            }
+        }
+    </script>
+</body>
+</html>
