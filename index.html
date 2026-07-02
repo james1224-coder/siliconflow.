@@ -49,7 +49,7 @@ endmodule</textarea>
             term.innerText = "[STAGED] Compiling hardware instructions via remote server toolchain...\n";
             try {
                 // STEP 3 TARGET: REPLACE WITH YOUR LIVE RENDER SERVER URL
-                const response = await fetch('https://YOUR-BACKEND-RENDER-URL.onrender.com/api/simulate', {
+                const response = await fetch('https://siliconflow-knh6.onrender.com', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ code: document.getElementById('codeEditor').value })
